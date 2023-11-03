@@ -67,6 +67,16 @@ body {
     text-align: center;
 }
 
+.itemSeleccionado {
+    flex: 1;
+    padding-top: 15px;
+    margin-left: 3px;
+    margin-right: 3px;
+    background-color: var(--colorInput);
+    border: 2px black solid;
+    text-align: center;
+}
+
 .container {
     margin-top: 20px;
     display: flex;
@@ -155,8 +165,11 @@ button:hover {
 }
 
 #map {
-    margin-top: 50px;
-    margin-bottom: 50px;
-    height: 350px;
-    width: 350px;
-}
+    height: 200px;
+    width: 200px;
+  }
+
+  a {
+    color: black;
+    text-decoration: none;
+  }

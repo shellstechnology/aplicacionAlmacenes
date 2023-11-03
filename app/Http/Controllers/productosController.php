@@ -6,8 +6,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Session;
 
-class almacenesController extends Controller
+class productosController extends Controller
 {
+    
     public function obtenerDatos()
     {
         $response = Http::get('http://127.0.0.1:8001/api/producto');
@@ -21,12 +22,15 @@ class almacenesController extends Controller
 
     public function agregar($request)
     {
-        Http::post('http://127.0.0.1:8001/api/producto', [
+       $request= Http::post('http://127.0.0.1:8001/api/producto', [
             'nombre' => $request->input('nombre'),
             'precio' => $request->input('precio'),
             'stock' => $request->input('stock'),
             'idMoneda' => $request->input('tipoMoneda'),
         ]);
+        dd($request->json());
+        $this->obtenerDatos();
+        return redirect()->route('producto');
     }
 
     public function modificar($request)
@@ -70,4 +74,5 @@ class almacenesController extends Controller
         $this->obtenerDatos();
         return redirect()->route('producto');
     }
+    
 }

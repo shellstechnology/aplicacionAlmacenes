@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\almacenesController;
+use App\Http\Controllers\productosController;
+use App\Http\Controllers\paquetesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,6 +16,19 @@ use App\Http\Controllers\almacenesController;
 */
 
 Route::get('/', function () {
-    return view('almacenes');
-});
-Route::get('/productos', [almacenesController::class, 'obtenerDatos'])->name('productos.cargarDatos');
+    return view('productos');
+})->name('producto');
+
+Route::get('/productos', function () {
+    return view('productos');
+})->name('productos');
+
+Route::get('/paquetes', function () {
+    return view('paquetes');
+})->name('paquetes');
+
+Route::get('/Productos', [productosController::class, 'obtenerDatos'])->name('productos.cargarDatos');
+Route::post('/redireccionproductos', [productosController::class, 'redireccion'])->name('redireccion.producto');
+
+Route::get('/Paquetes', [paquetesController::class, 'obtenerDatos'])->name('paquete.cargarDatos');
+Route::post('/redireccionpaquetes', [paquetesController::class, 'redireccion'])->name('redireccion.paquete');
