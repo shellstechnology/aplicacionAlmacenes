@@ -20,8 +20,9 @@ initial-scale=1.0">
     <div class="barraDeNavegacion">
       <div class="itemSeleccionado"> Paquetes</div>
       <a href="{{route('productos')}}" class="item"> Productos</a> 
-      <div class="item"> Lotes</div>
-      <div class="item"> Lotes En Camión</div>
+      <a href="{{route('paquetesEnLote')}}" class="item"> Paquetes En Lote</a> 
+      <a  href="{{route('lotes')}}" class="item"> Lotes</a>
+      <a  href="{{route('lotesCamion')}}" class="item"> Lotes En Camión</a>
     </div>
     <div class="container">
       <div class="cuerpo">
