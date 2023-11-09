@@ -7,6 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="css/styleAlmacenes.css">
     <link rel="icon" href="img/Logo Aplicación.png">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+  <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Almacenes</title>
 </head>
 
@@ -57,6 +59,14 @@
                 </div>
             </div>
         </div>
+        <script>
+        $(document).ready(function(){
+            var token = localStorage.getItem("accessToken");
+            if(token == null)
+            $(location).prop('href', '/login');
+            
+        });  
+        </script>
 </body>
 
 </html>

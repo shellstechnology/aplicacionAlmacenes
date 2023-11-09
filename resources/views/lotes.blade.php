@@ -7,6 +7,8 @@
         content="ie=edge">
         <link rel="stylesheet" href="css/styleAlmacenes.css">
         <link rel="icon" href="img/Logo Aplicación.png"> <title>Productos</title> 
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+  <meta name="csrf-token" content="{{ csrf_token() }}">
     </head>
     <body>
     <div class="principalBody">
@@ -47,14 +49,36 @@
          <button type="submit" name="aceptar">Aceptar</button>
       </div>
      </form>
-       <form action="{{route('lote.cargarDatos')}}" method="GET">
-         @csrf
-         <button type="submit" name="cargar">Cargar Datos</button>
-       </form>
+
+         <button id="cargarDatos" type="submit" name="cargar">Cargar Datos</button>
+
             </div>
         </div>
     </div>
     </div>
     </div>
+    <script>
+        $(document).ready(function(){
+            var token = localStorage.getItem("accessToken");
+            if(token == null)
+            $(location).prop('href', '/login');
+        
+            $("#cargarDatos").click(function(){
+                jQuery.ajax({  
+                    url: '{{route('lote.cargarDatos')}}',  
+                    type: 'GET',
+                    headers: {
+                        "Authorization" : "Bearer " + localStorage.getItem("accessToken"),
+                        "Accept" : "application/json",
+                        "Content-Type" : "application/json",
+                    },
+                    success: function(data) {  
+                        $(location).prop('href', '/lotes');
+                    }
+                    
+                });  
+            });
+        });  
+        </script>
 </body>
 </html>

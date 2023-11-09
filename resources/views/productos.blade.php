@@ -7,6 +7,8 @@
         content="ie=edge">
         <link rel="stylesheet" href="css/styleAlmacenes.css">
         <link rel="icon" href="img/Logo Aplicación.png"> <title>Productos</title> 
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+        <meta name="csrf-token" content="{{ csrf_token() }}">
     </head>
     <body>
     <div class="principalBody">
@@ -25,24 +27,23 @@
                 </div>
             </div>
             <div class="cajaDatos">
-            <form action="{{route('redireccion.producto')}}" method="POST">
-          @csrf
+
           <fieldset>
                <legend>Selecciona una accion:</legend>
                  <div>
-                  <input type="radio" id="agregar" name="accion" value="agregar" checked />
+                  <input class="accion" type="radio" id="agregar" name="accion" value="agregar" checked />
                   <label for="agregar">Agregar</label>
                  </div>
                  <div>
-                   <input type="radio" id="modificar" name="accion" value="modificar" />
+                   <input class="accion" type="radio" id="modificar" name="accion" value="modificar" />
                    <label for="modificar">Modificar</label>
                 </div>
                 <div>
-                 <input type="radio" id="eliminar" name="accion" value="eliminar" />
+                 <input class="accion" type="radio" id="eliminar" name="accion" value="eliminar" />
                  <label for="eliminar">Eliminar</label>
                 </div>
                 <div>
-                 <input type="radio" id="recuperar" name="accion" value="recuperar" />
+                 <input class="accion" type="radio" id="recuperar" name="accion" value="recuperar" />
                  <label for="recuperar">Recuperar</label>
                </div >
              </fieldset>
@@ -67,19 +68,78 @@
             <input type="hidden" name="identificador" id="identificador"> </input>
           </div>
           <div class="campo">
-          <button type="submit">Aceptar</button>
+          <button id="aceptar" type="submit">Aceptar</button>
           </div>
-        </form>
+       
        </div>
-       <form action="{{route('productos.cargarDatos')}}" method="GET">
-         @csrf
-         <button type="submit" name="cargar" id="cargar">Cargar Datos</button>
-       </form>
+
+         <button id="cargarDatos" type="submit" name="cargar" id="cargar">Cargar Datos</button>
+
             </div>
         </div>
     </div>
     </div>
     </div>
+    <script>
+        $(document).ready(function(){
+            var token = localStorage.getItem("accessToken");
+            if(token == null)
+            $(location).prop('href', '/login');
+            
+            $("#cargarDatos").click(function(){
+                jQuery.ajax({  
+                    url: '{{route('productos.cargarDatos')}}',  
+                    type: 'GET',
+                    headers: {
+                        "Authorization" : "Bearer " + localStorage.getItem("accessToken"),
+                        "Accept" : "application/json",
+                        "Content-Type" : "application/json",
+                    },
+                    success: function(data) {  
+                        $(location).prop('href', '/productos');
+                    }
+                });  
+            });
+
+            $("#aceptar").click(function(){
+              var accion = $(".accion").val();
+                var nombre = $("#nombre").val();
+                var precio = $("#precio").val();
+                var stock = $("#stock").val();
+                var moneda = $("#tipoMoneda").val();
+
+                var dataFormulario = {
+                   "accion": accion,
+                    "nombre": nombre,
+                    "precio": precio,
+                    "stock": stock,
+                    "tipoMoneda": moneda,
+
+                }
+                console.log(dataFormulario);
+
+                $.ajax({  
+                    url: '{{route('redireccion.producto')}}',  
+                    method: 'POST',
+                    async: true,
+                    crossDomain: true,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                        "Authorization" : "Bearer " + localStorage.getItem("accessToken"),
+                        "Accept" : "application/json",
+                        "Content-Type" : "application/json",
+                    },
+                    data: JSON.stringify(dataFormulario),
+                    success: function(data) {  
+                    
+                    /*     $(location).prop('href', '/productos'); */
+                    }
+                    
+                });  
+            });
+
+        });  
+        </script>
 </body>
 
 </html>

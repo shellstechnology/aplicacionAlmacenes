@@ -6,6 +6,8 @@ initial-scale=1.0">
 <link rel="stylesheet" href="css/styleAlmacenes.css">
 <link rel="icon" href="img/Logo Aplicación.png">
 <script src="{{asset('js/funciones.js')}}"> </script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+  <meta name="csrf-token" content="{{ csrf_token() }}">
 <title>Asignar Paquetes En Lote</title>
 </head>
 
@@ -62,16 +64,38 @@ initial-scale=1.0">
           <button type="submit" name="aceptar">Aceptar</button>
           </form>
          </div>
-      <form action="{{route('paqueteLote.cargarDatos')}}" method="GET">
-         @csrf
-         <button type="submit" name="cargar" id="cargar">Cargar Datos</button>
-       </form>
+ 
+         <button id="cargarDatos" type="submit" name="cargar" id="cargar">Cargar Datos</button>
+
       </div>
     </div>
   </div>
   </div>
   </div>
   </div>
+  <script>
+        $(document).ready(function(){
+            var token = localStorage.getItem("accessToken");
+            if(token == null)
+            $(location).prop('href', '/login');
+            
+            $("#cargarDatos").click(function(){
+                jQuery.ajax({  
+                    url: '{{route('paqueteLote.cargarDatos')}}',  
+                    type: 'GET',
+                    headers: {
+                        "Authorization" : "Bearer " + localStorage.getItem("accessToken"),
+                        "Accept" : "application/json",
+                        "Content-Type" : "application/json",
+                    },
+                    success: function(data) {  
+                        $(location).prop('href', '/paquetesEnLote');
+                    }
+                    
+                });  
+            });
+        });  
+        </script>
 </body>
 
 </html>

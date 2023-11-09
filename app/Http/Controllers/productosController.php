@@ -28,9 +28,9 @@ class productosController extends Controller
             'stock' => $request->input('stock'),
             'idMoneda' => $request->input('tipoMoneda'),
         ]);
-        dd($request->json());
+    /*     dd($request->json()); */
         $this->obtenerDatos();
-        return redirect()->route('producto');
+    /*     return redirect()->route('producto'); */
     }
 
     public function modificar($request)
