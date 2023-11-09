@@ -107,7 +107,6 @@
                 var precio = $("#precio").val();
                 var stock = $("#stock").val();
                 var moneda = $("#tipoMoneda").val();
-
                 var dataFormulario = {
                    "accion": accion,
                     "nombre": nombre,
