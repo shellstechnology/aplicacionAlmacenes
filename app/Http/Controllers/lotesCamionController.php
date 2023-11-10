@@ -15,7 +15,7 @@ class lotesCamionController extends Controller
         Session::put('camionLlevaLote', $data[0]);
         Session::put('matriculaCamiones', $data[1]);
         Session::put('idLotes', $data[2]);
-        return redirect()->route('lotesCamion');
+
     }
 
     public function agregar($request)
@@ -24,7 +24,7 @@ class lotesCamionController extends Controller
             'matricula' => $request->input('idCamion'),
             'id_lote' => $request->input('idLote'),
         ]);
-        dd($response->json());
+
     }
 
     public function modificar($request)
@@ -34,14 +34,14 @@ class lotesCamionController extends Controller
             'matricula' => $request->input('idCamion'),
             'id_lote' => $request->input('idLote'),
         ]);
-        dd($response->json());
+
     }
 
     public function eliminar($request)
     {
         $identificador = $request->input('identificador');
         $request = Http::delete("http://127.0.0.1:8001/api/loteCamion/$identificador");
-        dd($request->json());
+
     }
     public function recuperar($request)
     {

@@ -11,8 +11,7 @@ initial-scale=1.0">
 <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
 <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
-  <meta name="csrf-token" content="{{ csrf_token() }}">
-
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <title>Paquetes</title>
 </head>
 
@@ -32,8 +31,7 @@ initial-scale=1.0">
         </div>
       </div>
       <div class="cajaDatos">
-        <form action="{{route('redireccion.paquete')}}" method="POST">
-          @csrf
+
           <fieldset>
             <legend>Selecciona una accion:</legend>
             <div>
@@ -105,8 +103,8 @@ initial-scale=1.0">
             <label for="peso">Peso(Kg)</label>
           </div>
           <input type="hidden" name="identificador" id="identificador"></input>
-          <button type="submit" name="aceptar">Aceptar</button>
-        </form>
+          <button id="aceptar" type="submit" name="aceptar">Aceptar</button>
+      
 
         <button id="cargarDatos" type="submit" name="cargar" id="cargar">Cargar Datos</button>
 
@@ -133,6 +131,78 @@ initial-scale=1.0">
                     },
                     success: function(data) {  
                         $(location).prop('href', '/paquetes');
+                    }
+                    
+                });  
+            });
+
+
+            $("#aceptar").click(function(){
+              var accion = $("input[name='accion']:checked").val();
+                var nombrePaquete = $("#nombrePaquete").val();
+                var direccion = $("#direccion").val();
+                var dia = $("#dia").val();
+                var mes = $("#mes").val();
+                var anio = $("#anio").val();
+                var latitud = $("#latitud").val();
+                var longitud = $("#longitud").val();
+                var estadoPaquete = $("#estadoPaquete").val();
+                var caracteristica = $("#caracteristica").val();
+                var nombreRemitente = $("#nombreRemitente").val();
+                var nombreDestinatario = $("#nombreDestinatario").val();
+                var idProducto = $("#idProducto").val();
+                var volumen = $("#volumen").val();
+                var peso = $("#peso").val();
+                var identificador = $("#identificador").val();
+                
+                
+                var dataFormulario = {
+                  "accion": accion,
+                  "nombrePaquete": nombrePaquete,
+                  "volumen": volumen,
+                  "peso": peso,
+                  "estadoPaquete": estadoPaquete,
+                  "caracteristica": caracteristica,
+                  "idProducto": idProducto,
+                  "nombreRemitente": nombreRemitente,
+                  "nombreDestinatario": nombreDestinatario,
+                  "direccion": direccion,
+                  "latitud": latitud,
+                  "longitud": longitud,
+                    "dia": dia,
+                    "mes": mes,
+                    "anio": anio,
+                    "identificador": identificador,
+                }
+                console.log(dataFormulario);
+                $.ajax({  
+                    url: '{{route('redireccion.paquete')}}',  
+                    method: 'POST',
+                    async: true,
+                    crossDomain: true,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                        "Authorization" : "Bearer " + localStorage.getItem("accessToken"),
+                        "Accept" : "application/json",
+                        "Content-Type" : "application/json",
+                    },
+                    data: JSON.stringify(dataFormulario),
+                    success: function(data) {  
+                      $("#cargarDatos").click();
+                      $("#cargarDatos").click(function(){
+                jQuery.ajax({  
+                    url: '{{route('paquete.cargarDatos')}}',  
+                    type: 'GET',
+                    headers: {
+                        "Authorization" : "Bearer " + localStorage.getItem("accessToken"),
+                        "Accept" : "application/json",
+                        "Content-Type" : "application/json",
+                    },
+                    success: function(data) {  
+                        $(location).prop('href', '/paquetes');
+                    }
+                });  
+            });
                     }
                     
                 });  

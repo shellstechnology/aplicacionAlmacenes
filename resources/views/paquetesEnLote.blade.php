@@ -27,8 +27,7 @@ initial-scale=1.0">
         </div>
       </div>
       <div class="cajaDatos">
-      <form action="{{route('redireccion.paqueteLote')}}" method="POST">
-        @csrf
+
         <fieldset>
                <legend>Selecciona una accion:</legend>
                  <div>
@@ -61,8 +60,8 @@ initial-scale=1.0">
           </div>
           <div class="contenedorDatos">
           <input type="hidden" name="identificador" id="identificador"></input>
-          <button type="submit" name="aceptar">Aceptar</button>
-          </form>
+          <button id="aceptar" type="submit" name="aceptar">Aceptar</button>
+
          </div>
  
          <button id="cargarDatos" type="submit" name="cargar" id="cargar">Cargar Datos</button>
@@ -90,6 +89,59 @@ initial-scale=1.0">
                     },
                     success: function(data) {  
                         $(location).prop('href', '/paquetesEnLote');
+                    }
+                    
+                });  
+            });
+
+            $("#aceptar").click(function(){
+              var accion = $("input[name='accion']:checked").val();
+              var identificador = $("#identificador").val();
+              var idLote = $("#idLote").val();
+                var idPaquete = $("#idPaquete").val();
+                var idAlmacen = $("#idAlmacen").val();
+
+                var dataFormulario = {
+                  "accion": accion,
+                  "identificador": identificador,
+                  "idLote": idLote,
+                   "idPaquete": idPaquete,
+                   "idAlmacen": idAlmacen,
+                }
+                console.log(dataFormulario);
+
+                $.ajax({  
+                    url: '{{route('redireccion.paqueteLote')}}',  
+                    method: 'POST',
+                    async: true,
+                    crossDomain: true,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                        "Authorization" : "Bearer " + localStorage.getItem("accessToken"),
+                        "Accept" : "application/json",
+                        "Content-Type" : "application/json",
+                    },
+                    data: JSON.stringify(dataFormulario),
+                    success: function(data) {  
+                      $("#cargarDatos").click();
+                      $("#cargarDatos").click(function(){
+                jQuery.ajax({  
+                    url: '{{route('paqueteLote.cargarDatos')}}',  
+                    type: 'GET',
+                    headers: {
+                        "Authorization" : "Bearer " + localStorage.getItem("accessToken"),
+                        "Accept" : "application/json",
+                        "Content-Type" : "application/json",
+                    },
+                    success: function(data) {  
+                        $(location).prop('href', '/paquetesEnLote');
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+    console.error("Error:", errorThrown);
+}
+                    
+                });  
+            });
                     }
                     
                 });  

@@ -102,13 +102,15 @@
             });
 
             $("#aceptar").click(function(){
-              var accion = $(".accion").val();
+              var accion = $("input[name='accion']:checked").val();
                 var nombre = $("#nombre").val();
                 var precio = $("#precio").val();
                 var stock = $("#stock").val();
                 var moneda = $("#tipoMoneda").val();
+                var identificador = $("#identificador").val();
                 var dataFormulario = {
                    "accion": accion,
+                   "identificador": identificador,
                     "nombre": nombre,
                     "precio": precio,
                     "stock": stock,
@@ -130,8 +132,21 @@
                     },
                     data: JSON.stringify(dataFormulario),
                     success: function(data) {  
-                    
-                    /*     $(location).prop('href', '/productos'); */
+                      $("#cargarDatos").click();
+                      $("#cargarDatos").click(function(){
+                jQuery.ajax({  
+                    url: '{{route('productos.cargarDatos')}}',  
+                    type: 'GET',
+                    headers: {
+                        "Authorization" : "Bearer " + localStorage.getItem("accessToken"),
+                        "Accept" : "application/json",
+                        "Content-Type" : "application/json",
+                    },
+                    success: function(data) {  
+                        $(location).prop('href', '/productos');
+                    }
+                });  
+            });
                     }
                     
                 });  

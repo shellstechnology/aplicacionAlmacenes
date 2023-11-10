@@ -27,8 +27,6 @@
                 </div>
             </div>
             <div class="cajaDatos">
-            <form action="{{route('redireccion.lote')}}" method="POST">
-        @csrf
         <fieldset>
                <legend>Selecciona una accion:</legend>
                  <div>
@@ -46,9 +44,9 @@
              </fieldset>
         <div class="contenedorDatos">
          <input type="hidden" name="identificador" id="identificador">
-         <button type="submit" name="aceptar">Aceptar</button>
+         <button id="aceptar" type="submit" name="aceptar">Aceptar</button>
       </div>
-     </form>
+
 
          <button id="cargarDatos" type="submit" name="cargar">Cargar Datos</button>
 
@@ -74,6 +72,49 @@
                     },
                     success: function(data) {  
                         $(location).prop('href', '/lotes');
+                    }
+                    
+                });  
+            });
+
+            $("#aceptar").click(function(){
+              var accion = $("input[name='accion']:checked").val();
+                var identificador = $("#identificador").val();
+                var dataFormulario = {
+                   "accion": accion,
+                   "identificador": identificador,
+
+                }
+                console.log(dataFormulario);
+
+                $.ajax({  
+                    url: '{{route('redireccion.lote')}}',  
+                    method: 'POST',
+                    async: true,
+                    crossDomain: true,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                        "Authorization" : "Bearer " + localStorage.getItem("accessToken"),
+                        "Accept" : "application/json",
+                        "Content-Type" : "application/json",
+                    },
+                    data: JSON.stringify(dataFormulario),
+                    success: function(data) {  
+                      $("#cargarDatos").click();
+                      $("#cargarDatos").click(function(){
+                jQuery.ajax({  
+                    url: '{{route('lote.cargarDatos')}}',  
+                    type: 'GET',
+                    headers: {
+                        "Authorization" : "Bearer " + localStorage.getItem("accessToken"),
+                        "Accept" : "application/json",
+                        "Content-Type" : "application/json",
+                    },
+                    success: function(data) {  
+                        $(location).prop('href', '/productos');
+                    }
+                });  
+            });
                     }
                     
                 });  

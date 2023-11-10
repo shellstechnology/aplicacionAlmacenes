@@ -17,7 +17,6 @@ class paquetesController extends Controller
         Session::put('idProductos', $data[2]);
         Session::put('idLugaresEntrega', $data[3]);
         Session::put('estadoPaquete', $data[4]);
-        return redirect()->route('paquetes');
     }
 
     public function agregar($request)
@@ -35,7 +34,6 @@ class paquetesController extends Controller
             'latitud'=>$request->input('longitud'),
             'longitud'=>$request->input('latitud'),
         ]);
-        dd($response->json());
     }
 
     public function modificar($request)
@@ -54,14 +52,14 @@ class paquetesController extends Controller
             'latitud'=>$request->input('longitud'),
             'longitud'=>$request->input('latitud'),
         ]);
-        dd($response->json());
+        
     }
 
     public function eliminar($request)
     {
         $identificador = $request->input('identificador');
         $request = Http::delete("http://127.0.0.1:8001/api/paquete/$identificador");
-        dd($request->json());
+      
     }
     public function recuperar($request)
     {

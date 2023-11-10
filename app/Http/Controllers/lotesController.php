@@ -13,20 +13,17 @@ class lotesController extends Controller
         $response = Http::get('http://127.0.0.1:8001/api/lote');
         $data = $response->json();
         Session::put('lotes', $data);
-        return redirect()->route('lotes');
     }
 
     public function agregar($request)
     {
         $response=Http::post('http://127.0.0.1:8001/api/lote');
-        dd($response->json());
     }
 
     public function eliminar($request)
     {
         $identificador = $request->input('identificador');
         $request = Http::delete("http://127.0.0.1:8001/api/lote/$identificador");
-        dd($request->json());
     }
     public function recuperar($request)
     {

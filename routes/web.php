@@ -48,19 +48,22 @@ Route::get('/lotesCamion', function () {
     return view('lotesCamion');
 })->name('lotesCamion');
 
+
+Route::middleware(Autenticacion::class)->group(function () {
 Route::get('/Productos', [productosController::class, 'obtenerDatos'])->name('productos.cargarDatos')->middleware(Autenticacion::class);
-Route::post('/redireccionproductos', [productosController::class, 'redireccion'])->name('redireccion.producto');
+Route::post('/redireccionproductos', [productosController::class, 'redireccion'])->name('redireccion.producto')->middleware(Autenticacion::class);
 
-Route::get('/Paquetes', [paquetesController::class, 'obtenerDatos'])->name('paquete.cargarDatos')->middleware(Autenticacion::class);
-Route::post('/redireccionpaquetes', [paquetesController::class, 'redireccion'])->name('redireccion.paquete')->middleware(Autenticacion::class);
+Route::get('/Paquetes', [paquetesController::class, 'obtenerDatos'])->name('paquete.cargarDatos');
+Route::post('/redireccionpaquetes', [paquetesController::class, 'redireccion'])->name('redireccion.paquete');
 
-Route::get('/Lotes', [lotesController::class, 'obtenerDatos'])->name('lote.cargarDatos')->middleware(Autenticacion::class);
-Route::post('/redireccionlotes', [lotesController::class, 'redireccion'])->name('redireccion.lote')->middleware(Autenticacion::class);
+Route::get('/Lotes', [lotesController::class, 'obtenerDatos'])->name('lote.cargarDatos');
+Route::post('/redireccionlotes', [lotesController::class, 'redireccion'])->name('redireccion.lote');
 
 Route::get('/LotesCamion', [lotesCamionController::class, 'obtenerDatos'])->name('loteCamion.cargarDatos')->middleware(Autenticacion::class);
 Route::post('/redireccionlotescamion', [lotesCamionController::class, 'redireccion'])->name('redireccion.loteCamion')->middleware(Autenticacion::class);
 
 
 
-Route::get('/PaquetesEnLote', [parqueteContieneLoteController::class, 'obtenerDatos'])->name('paqueteLote.cargarDatos')->middleware(Autenticacion::class);
-Route::post('/paquetesEnLote', [parqueteContieneLoteController::class, 'redireccion'])->name('redireccion.paqueteLote')->middleware(Autenticacion::class);
+Route::get('/PaquetesEnLote', [parqueteContieneLoteController::class, 'obtenerDatos'])->name('paqueteLote.cargarDatos');
+Route::post('/paquetesEnLote', [parqueteContieneLoteController::class, 'redireccion'])->name('redireccion.paqueteLote');
+});

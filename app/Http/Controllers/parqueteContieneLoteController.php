@@ -16,7 +16,6 @@ class parqueteContieneLoteController extends Controller
         Session::put('idAlmacenes', $data[1]);
         Session::put('idPaquetes', $data[2]);
         Session::put('idLotes', $data[3]);
-        return redirect()->route('paquetesEnLote');
     }
 
     public function agregar($request)
@@ -26,7 +25,6 @@ class parqueteContieneLoteController extends Controller
             'id_paquete' =>  $request->input('idPaquete'),
             'id_almacen' =>  $request->input('idAlmacen')
         ]);
-        dd($response->json());
     }
 
     public function modificar($request)
@@ -37,14 +35,12 @@ class parqueteContieneLoteController extends Controller
             'id_paquete' =>  $request->input('idPaquete'),
             'id_almacen' =>  $request->input('idAlmacen')
         ]);
-        dd($response->json());
     }
 
     public function eliminar($request)
     {
         $identificador = $request->input('identificador');
         $request = Http::delete("http://127.0.0.1:8001/api/paquete-lote/$identificador");
-        dd($request->json());
     }
     public function recuperar($request)
     {

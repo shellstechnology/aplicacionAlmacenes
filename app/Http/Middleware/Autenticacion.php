@@ -23,6 +23,6 @@ class Autenticacion
         $response = Http::withHeaders($tokenHeader) -> get("http://localhost:8002/api/v1/validate");
         if($response -> successful())
             return $next($request);
-        return redirect("/login");
+    /*     return redirect("/login"); */
     }
 }
