@@ -17,34 +17,57 @@ class lotesController extends Controller
 
     public function agregar($request)
     {
+        try{
         $response=Http::post('http://127.0.0.1:8001/api/lote');
+        return 'Datos agregados correctamente';
+    } catch (\Exception $e) {
+        return 'No se pudieron agregar los datos';
+    }
     }
 
     public function eliminar($request)
     {
+        try{
         $identificador = $request->input('identificador');
         $request = Http::delete("http://127.0.0.1:8001/api/lote/$identificador");
+        return 'Datos eliminados correctamente';
+    } catch (\Exception $e) {
+        return 'No se pudieron eliminar los datos';
+    }
     }
     public function recuperar($request)
     {
+        try{
         $identificador = $request->input('identificador');
         $request = Http::patch("http://127.0.0.1:8001/api/lote/$identificador");
+        return 'Datos recuperados correctamente';
+    } catch (\Exception $e) {
+        return 'No se pudieron recuperar los lotes';
+    }
     }
 
 
     public function redireccion(Request $request)
     {
-        $accion = $request->input('accion');
-        if ($accion == 'agregar') {
-            $this->agregar($request);
+        try {
+            $respuesta = 'No se encontro ninguna ruta';
+            $accion = $request->input('accion');
+            if ($accion == 'agregar') {
+                $respuesta = $this->agregar($request);
+            }
+            if ($accion == 'modificar') {
+                $respuesta = $this->modificar($request);
+            }
+            if ($accion == 'eliminar') {
+                $respuesta = $this->eliminar($request);
+            }
+            if ($accion == 'recuperar') {
+                $respuesta = $this->recuperar($request);
+            }
+            $this->obtenerDatos();
+            return response()->json($respuesta);
+        } catch (\Exception $e) {
+            return response()->json('Error al obtener los datos');
         }
-        if ($accion == 'eliminar') {
-            $this->eliminar($request);
-        }
-        if ($accion == 'recuperar') {
-            $this->recuperar($request);
-        }
-        $this->obtenerDatos();
-        return redirect()->route('paquetes');
     }
 }

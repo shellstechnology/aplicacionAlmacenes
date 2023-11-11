@@ -100,6 +100,7 @@
                     },
                     data: JSON.stringify(dataFormulario),
                     success: function(data) {  
+                        alert(data);
                       $("#cargarDatos").click();
                       $("#cargarDatos").click(function(){
                 jQuery.ajax({  
