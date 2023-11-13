@@ -8,10 +8,10 @@
     <link rel="stylesheet" href="css/styleAlmacenes.css">
     <link rel="icon" href="img/Logo Aplicación.png">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
-  <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Almacenes</title>
 </head>
-
+@include('header')
 <body>
     <div class="principalBody">
 
@@ -32,23 +32,19 @@
                         <input type="checkbox" id="cbxEliminar">Eliminar </input>
                         <div class="contenedorDatos">
                             <div class="campo">
-                                <input type="text" id="nombre" maxlength="20" onpaste="return false;"
-                                    placeholder="Nombre del producto:"></input>
+                                <input type="text" id="nombre" maxlength="20" onpaste="return false;" placeholder="Nombre del producto:"></input>
 
                             </div>
                             <div class="campo">
-                                <input type="number" id="precio" min="1" max="9999999" onkeydown="filtro(event)"
-                                    onpaste="return false" ; placeholder="Precio:"></input>
+                                <input type="number" id="precio" min="1" max="9999999" onkeydown="filtro(event)" onpaste="return false" ; placeholder="Precio:"></input>
 
                             </div>
                             <div class="campo">
-                                <input type="text" id="tipoMoneda" maxlength="3" onpaste="return false;"
-                                    placeholder="Tipo de Moneda:"></input>
+                                <input type="text" id="tipoMoneda" maxlength="3" onpaste="return false;" placeholder="Tipo de Moneda:"></input>
 
                             </div>
                             <div class="campo">
-                                <input type="number" id="stock" min="0" max="9999999" onkeydown="filtro(event) onpaste="
-                                    return false;" placeholder="Stock del Producto:"></input>
+                                <input type="number" id="stock" min="0" max="9999999" onkeydown="filtro(event) onpaste=" return false;" placeholder="Stock del Producto:"></input>
 
                             </div><br>
                             <button>Cargar Tabla</button><br>
@@ -60,13 +56,14 @@
             </div>
         </div>
         <script>
-        $(document).ready(function(){
-            var token = localStorage.getItem("accessToken");
-            if(token == null)
-            $(location).prop('href', '/login');
-            
-        });  
+            $(document).ready(function() {
+                var token = localStorage.getItem("accessToken");
+                if (token == null)
+                    $(location).prop('href', '/login');
+
+            });
+
         </script>
 </body>
-
+@include('footer')
 </html>
