@@ -59,9 +59,6 @@ initial-scale=1.0">
           <div class="campo">
             <input type="text" id="direccion" name="direccion" maxlength="100" ></input>
            <label for="direccion" >Direccion</label>
-         </div>
-            <x-select-fecha-component />
-          </div>
           <div class="campo">
           <div class="campo">
             <input type="text" id="latitud" name="latitud" onkeydown="filtro(event)" 

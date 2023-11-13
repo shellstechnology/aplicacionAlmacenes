@@ -6,7 +6,6 @@ $datos = session('paquete', []);
     <tr>
         <th>Id Paquete</th>
         <th>Nombre del Paquete</th>
-        <th>Fecha de Entrega</th>
         <th>Direccion</th>
         <th>Latitud</th>
         <th>Longitud</th>
@@ -25,13 +24,12 @@ $datos = session('paquete', []);
     @if($datos)
     @foreach ($datos as $paquete)
     <tr onclick="seleccionarFila('{{ $paquete['Id Paquete'] }}','{{ $paquete['Nombre del Paquete'] }}',
-    '{{ $paquete['Fecha de Entrega'] }}','{{ $paquete['Direccion'] }}','{{ $paquete['Latitud'] }}','{{ $paquete['Longitud'] }}','{{ $paquete['Estado'] }}',
+    '{{ $paquete['Direccion'] }}','{{ $paquete['Latitud'] }}','{{ $paquete['Longitud'] }}','{{ $paquete['Estado'] }}',
     '{{ $paquete['Caracteristicas'] }}','{{ $paquete['Nombre del Remitente'] }}','{{ $paquete['Nombre del Destinatario'] }}',
     '{{ $paquete['Id del Producto'] }}','{{ $paquete['Volumen(L)'] }}','{{ $paquete['Peso(Kg)'] }}'
 )">
             <td>{{ $paquete['Id Paquete'] }}</td>
             <td>{{ $paquete['Nombre del Paquete'] }}</td>
-            <td>{{ $paquete['Fecha de Entrega'] }}</td>
             <td>{{ $paquete['Direccion'] }}</td>
             <td>{{ $paquete['Longitud'] }}</td>
             <td>{{ $paquete['Latitud'] }}</td>
@@ -52,14 +50,10 @@ $datos = session('paquete', []);
 </table>
 
 <script>
-    function seleccionarFila(id, nombre,fecha,direccion,latitud,longitud,estado,caracteristica,nombreRemitente,
+    function seleccionarFila(id, nombre,direccion,latitud,longitud,estado,caracteristica,nombreRemitente,
                                 nombreDestinatario,producto,volumen,peso) {
     document.getElementById('identificador').value = id;
     document.getElementById('nombrePaquete').value = nombre;
-    var arrayFecha = fecha.split('-');
-    document.getElementById('anio').value = parseInt(arrayFecha[0], 10);
-    document.getElementById('mes').value = parseInt(arrayFecha[1], 10);
-    document.getElementById('dia').value = parseInt(arrayFecha[2], 10);
     document.getElementById('direccion').value = direccion;
     document.getElementById('latitud').value = latitud;
     document.getElementById('longitud').value = longitud;
