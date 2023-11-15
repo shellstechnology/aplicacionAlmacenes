@@ -61,7 +61,7 @@
         </div>
         <script>
         $(document).ready(function(){
-            var token = localStorage.getItem("accessToken");
+            var token = localStorage.getItem("accessTokenA");
             if(token == null)
             $(location).prop('href', '/login');
             

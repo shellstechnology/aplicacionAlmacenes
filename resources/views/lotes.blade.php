@@ -57,7 +57,7 @@
     </div>
     <script>
         $(document).ready(function(){
-            var token = localStorage.getItem("accessToken");
+            var token = localStorage.getItem("accessTokenA");
             if(token == null)
             $(location).prop('href', '/login');
         
@@ -66,7 +66,7 @@
                     url: '{{route('lote.cargarDatos')}}',  
                     type: 'GET',
                     headers: {
-                        "Authorization" : "Bearer " + localStorage.getItem("accessToken"),
+                        "Authorization" : "Bearer " + localStorage.getItem("accessTokenA"),
                         "Accept" : "application/json",
                         "Content-Type" : "application/json",
                     },
@@ -94,7 +94,7 @@
                     crossDomain: true,
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                        "Authorization" : "Bearer " + localStorage.getItem("accessToken"),
+                        "Authorization" : "Bearer " + localStorage.getItem("accessTokenA"),
                         "Accept" : "application/json",
                         "Content-Type" : "application/json",
                     },
@@ -107,7 +107,7 @@
                     url: '{{route('lote.cargarDatos')}}',  
                     type: 'GET',
                     headers: {
-                        "Authorization" : "Bearer " + localStorage.getItem("accessToken"),
+                        "Authorization" : "Bearer " + localStorage.getItem("accessTokenA"),
                         "Accept" : "application/json",
                         "Content-Type" : "application/json",
                     },

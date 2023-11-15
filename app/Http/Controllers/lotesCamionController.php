@@ -29,6 +29,9 @@ class lotesCamionController extends Controller
                 'matricula' => $request->input('idCamion'),
                 'id_lote' => $request->input('idLote'),
             ]);
+            if($response->json()==null){
+                return 'Error:Verifique los parametros del lote que intenta ingresar y el camion';
+            }
             return 'Datos agregados correctamente';
         } catch (\Exception $e) {
             return 'No se pudieron agregar los datos';
@@ -44,6 +47,9 @@ class lotesCamionController extends Controller
                 'matricula' => $request->input('idCamion'),
                 'id_lote' => $request->input('idLote'),
             ]);
+            if($response->json()==null){
+                return 'Error:Verifique los parametros del lote que intenta ingresar y el camion';
+            }
             return 'Datos modificados correctamente';
         } catch (\Exception $e) {
             return 'No se pudieron modificar los datos';
