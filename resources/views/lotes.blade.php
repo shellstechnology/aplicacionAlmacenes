@@ -12,8 +12,14 @@
     </head>
     <body>
     <div class="principalBody">
+    <button class="cerrarSesion" id="cerrarSesion">
+        <div class="rectangulo">
+            <div class="linea">
+                <div class="triangulo"></div>
+            </div>
+        </div>
+</button>
         <div class="barraDeNavegacion">
-
            <a href="{{route('paquetes')}}" class="item"> Paquetes</a> 
            <a href="{{route('productos')}}" class="item"> Productos</a> 
            <a href="{{route('paquetesEnLote')}}" class="item"> Paquetes En Lote</a> 
@@ -116,6 +122,22 @@
                     }
                 });  
             });
+                    }
+                    
+                });  
+            });
+            $("#cerrarSesion").click(function(){
+                jQuery.ajax({  
+                    url: 'http://localhost:8002/api/v1/logout',  
+                    type: 'GET',
+                    headers: {
+                        "Authorization" : "Bearer " + localStorage.getItem("accessTokenA"),
+                        "Accept" : "application/json",
+                        "Content-Type" : "application/json",
+                    },
+                    success: function(data) {  
+                        localStorage.removeItem("accessTokenA");
+                        $(location).prop('href', '/login');
                     }
                     
                 });  
