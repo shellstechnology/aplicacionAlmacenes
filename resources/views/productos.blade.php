@@ -9,6 +9,7 @@
         <link rel="icon" href="img/Logo Aplicación.png"> <title>Productos</title> 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
         <meta name="csrf-token" content="{{ csrf_token() }}">
+        <script src="{{asset('js/funciones.js')}}"> </script>
     </head>
     <body>
     <div class="principalBody">
